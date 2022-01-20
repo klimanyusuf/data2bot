@@ -11,66 +11,37 @@ from jsonschema import validate
 from genson import SchemaBuilder
 
 
-# In[8]:
-
-
-with open('data_1.json', 'r') as f:
-    datastore = json.load(f)
-    datastore
-
-
-# In[9]:
-
-
+#reading the data
 builder = SchemaBuilder()
 with open('data_1.json', 'r') as f:
     datastore = json.load(f)
     builder.add_object(datastore )
-
+    
+#build Schema
 builder.to_schema()
 
-
-# In[ ]:
-
-
+#dump data1 to schema1
 with open('schema1.json', 'w') as json_file:
     json.dump(schema1, json_file)
 
-
-# In[44]:
-
-
+#read data 2
 builder = SchemaBuilder()
 with open('data_2.json', 'r') as r:
     datastore = json.load(r)
     builder.add_object(datastore )
-
+    
+#build Schema for data2
 builder.to_schema()
 
-
-# In[47]:
-
-
+#assigning respective schema to new ones built
 schema2 = builder.to_schema()
 schema1 = builder.to_schema()
 
-
-# In[48]:
-
-
+# dump data2 to schema 2
 with open('schema2.json', 'w') as json_file:
     json.dump(schema2, json_file)
 
-
-# In[ ]:
-
-
-
-
-
-# In[49]:
-
-
+# redefining schema1
 schema1 = {
     "type": "object",
     "properties": {
@@ -78,11 +49,7 @@ schema1 = {
         "rollnumber": {"type": "number"},
         "marks": {"type": "number"}}}
     
-
-
-# In[50]:
-
-
+# validating schemas
 def validateJson(f):
     try:
         validate(instance=f, schema=schema1)
@@ -90,10 +57,7 @@ def validateJson(f):
         return False
     return True
 
-
-# In[53]:
-
-
+#validaing schemas
 isValid = validateJson(f)
 if isValid:
     print(f)
@@ -102,16 +66,8 @@ else:
     print(f)
     print("Given JSON data is False")
 
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
+    
+#do the same for schema 2
 schema2 = {
     "type": "object",
     "properties": {
@@ -120,8 +76,7 @@ schema2 = {
         "marks": {"type": "number"}}}
 
 
-# In[51]:
-
+# 
 
 def validateJson(r):
     try:
@@ -141,41 +96,3 @@ if isValid:
 else:
     print(f)
     print("Given JSON data is False")
-
-
-# In[ ]:
-
-
-
-
-
-# In[26]:
-
-
-
-isValid = validateJson(f)
-if isValid:
-    print(f)
-    print("Given JSON data is Valid")
-else:
-    print(f)
-    print("Given JSON data is InValid")
-
-
-# In[ ]:
-
-
-
-
-
-# In[40]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
