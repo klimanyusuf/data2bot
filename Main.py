@@ -1,15 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import json
 import jsonschema
 import genson
 from jsonschema import validate
 from genson import SchemaBuilder
-
 
 #reading the data
 builder = SchemaBuilder()
@@ -19,6 +13,10 @@ with open('data_1.json', 'r') as f:
     
 #build Schema
 builder.to_schema()
+
+#assigning respective schema to new ones built
+schema2 = builder.to_schema()
+schema1 = builder.to_schema()
 
 #dump data1 to schema1
 with open('schema1.json', 'w') as json_file:
@@ -32,10 +30,6 @@ with open('data_2.json', 'r') as r:
     
 #build Schema for data2
 builder.to_schema()
-
-#assigning respective schema to new ones built
-schema2 = builder.to_schema()
-schema1 = builder.to_schema()
 
 # dump data2 to schema 2
 with open('schema2.json', 'w') as json_file:
@@ -76,18 +70,12 @@ schema2 = {
         "marks": {"type": "number"}}}
 
 
-# 
-
 def validateJson(r):
     try:
         validate(instance=r, schema=schema1)
     except jsonschema.exceptions.ValidationError as err:
         return False
     return True
-
-
-# In[52]:
-
 
 isValid = validateJson(f)
 if isValid:
